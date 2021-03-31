@@ -154,6 +154,8 @@ https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-
  
 
 Sources:
+
 https://theithollow.com/2020/03/03/use-a-private-registry-with-kubernetes/
+
 https://blog.cloudhelix.io/using-a-private-docker-registry-with-kubernetes-f8d5f6b8f646
 
