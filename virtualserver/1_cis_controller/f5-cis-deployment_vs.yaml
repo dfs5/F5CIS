@@ -55,7 +55,6 @@ spec:
                 secretKeyRef: 
                   key: password
                   name: bigip-login
-#          image: "f5networks/k8s-bigip-ctlr:2.3.0"
-          image: "lavanyasirigudi/k8s-bigip-ctlr:in_nodeport" # readines port 8081
+          image: "f5networks/k8s-bigip-ctlr:2.3.0"
           name: f5-server
       serviceAccountName: k8s-bigip-ctlr

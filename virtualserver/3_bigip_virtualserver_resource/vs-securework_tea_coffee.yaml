@@ -24,7 +24,7 @@ spec:
       type: http
       interval: 10
       timeout: 31
-      send: "GET /tea\r\n"
+      send: "GET /\r\n"
   - path: /coffee
     service: nginx-ingress
     servicePort: 80
@@ -32,7 +32,7 @@ spec:
       type: http
       interval: 10
       timeout: 31
-      send: "GET /coffee\r\n"
+      send: "GET /\r\n"
   
   
     
