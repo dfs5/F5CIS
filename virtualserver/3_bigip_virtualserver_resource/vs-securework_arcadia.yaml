@@ -1,0 +1,29 @@
+apiVersion: "cis.f5.com/v1"
+kind: VirtualServer
+metadata:
+  name: arcadia-virtual
+  namespace: nginx-ingress
+  labels:
+    f5cr: "true"
+spec:
+  # This is an insecure virtual, Please use TLSProfile to secure the virtual
+  # check out tls examples to understand more.
+  virtualServerAddress: "10.24.1.23"
+  virtualServerHTTPSPort: 443
+  httpTraffic: redirect
+#  waf: /Common/WAF_Policy
+#  iRules:
+#  - /Common/Portal_SSL_Version
+  tlsProfileName: terminate-tls
+  host: arcadia.example.com
+  pools:
+  - path: /
+    service: nginx-ingress
+    servicePort: 80
+    monitor:
+      type: http
+      interval: 10
+      timeout: 31
+      send: "GET /services.html\r\n"
+
+    
