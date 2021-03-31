@@ -1,4 +1,4 @@
-    !/bin/bash
+    #!/bin/bash
 
     #delete kubernetes cis container, authentication and RBAC
     

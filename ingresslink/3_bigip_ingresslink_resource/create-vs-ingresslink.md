@@ -1,3 +1,3 @@
-#!/bin/bash
+    #!/bin/bash
 
-kubectl create -f vs-ingresslink.yaml
+    kubectl create -f vs-ingresslink.yaml

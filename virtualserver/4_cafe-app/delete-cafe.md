@@ -1,4 +1,4 @@
-#!/bin/bash
-
-kubectl delete ns cafe
+    #!/bin/bash
+    
+    kubectl delete ns cafe
 

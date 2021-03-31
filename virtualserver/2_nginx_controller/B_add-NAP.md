@@ -1,13 +1,12 @@
-
 # The following requires a private repositotry like in this case: registry.dfslab.local:5000
 ## link to guide
 
     git clone https://github.com/nginxinc/kubernetes-ingress/
     cd kubernetes-ingress/
     git checkout v1.10.1
-    make DOCKERFILE=appprotect/DockerfileWithAppProtectForPlus PREFIX=registry. dfslab.local:5000/nap-ingress
+    make DOCKERFILE=appprotect/DockerfileWithAppProtectForPlus PREFIX=registry.dfslab.local:5000/   nap-ingress
 
-    kubectl delete -f 2_nginx_controller/nginx-ingress-no-ingresslink.yaml
+    kubectl delete -f 2_nginx_controller/nginx-ingress.yaml
 
     kubectl create -f ~/_registry/registry-secret.yaml
 

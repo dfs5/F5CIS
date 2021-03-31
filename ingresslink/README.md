@@ -3,13 +3,13 @@
 This setup is based on:
 https://github.com/mdditt2000/kubernetes-1-19/blob/master/cis%202.3/github/damian/ingresslink/README.md
 
-build.md - lists all commands to demostrate F5 IngressLink with NGINX OSS as IC in NodePort mode serving Cafe application
+build.md - lists all commands to build the environment for IngressLink
 
 clean-up.md - removes everything
 
 verify-clean-start.md - for verification
-
-# F5 IngressLink using NodePort for Damian
+#
+## F5 IngressLink using NodePort for Damian
 
 **Please note:** In the current beta build i am using monitors are failing. I have created a bug for that. 
 
