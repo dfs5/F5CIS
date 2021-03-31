@@ -1,5 +1,5 @@
 
-# All output has to be empty.
+# All output has to be empty:
 
     kubectl get pod -A |grep nginx
     kube-system            nginx-proxy-node3                            1/1     Running   13         22h
