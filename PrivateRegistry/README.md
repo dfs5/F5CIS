@@ -77,7 +77,7 @@ https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-
 ## If you want to upload an existing image in your private repository
 
 	docker tag registry.dfslab.local:5000/nginx-plus-ingress:edge
-docker push registry.dfslab.local:5000/nginx-plus-ingress:edge
+    docker push registry.dfslab.local:5000/nginx-plus-ingress:edge
 
 ## Point to the private registry in your deployments and don’t forget to insert secret in the END of your deployment file.
 
