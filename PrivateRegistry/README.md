@@ -72,6 +72,11 @@ Verify config.json was created:
 https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-the-docker-image
 
     # example for NGINX IC for Kubernetes:
+    git clone https://github.com/nginxinc/kubernetes-ingress/
+    git checkout v1.11.1
+    cd kubernetes-ingress
+    ls nginx-repo.*
+    nginx-repo.crt  nginx-repo.key
     make debian-image-nap-plus PREFIX=registry.dfslab.local:5000/nginx-plus-ingress TARGET=container
 
 ## If you want to upload an existing image in your private repository
