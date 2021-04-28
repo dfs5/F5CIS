@@ -7,7 +7,7 @@ Create on a CA a cert/key pair for https access to registry.domain.name and expo
 On each worker node:
 
     vi /etc/hosts
-    10.24.1.10 registry.domain.name
+    10.24.1.10 registry.dfslab.local
 
 Import CA cert into --> /etc/ssl/certs
 
@@ -45,7 +45,7 @@ I gonna run my registry on the master node. So putting the ssl certificates ther
  
 ## On each worker node verify you can login to your repo:
 
-    sudo docker login registry.domain.name:5000
+    sudo docker login registry.dfslab.local:5000
  
 Verify config.json was created:
 
