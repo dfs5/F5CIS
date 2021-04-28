@@ -71,12 +71,12 @@ Verify config.json was created:
 ## If you need to build a new NGINX image execute the make command as described here:
 https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-the-docker-image
 
-    # example:
-    make DOCKERFILE=appprotect/DockerfileWithAppProtectForPlus PREFIX=registry.dfslab.local:5000/nap-ingress
+    # example for NGINX IC for Kubernetes:
+    make debian-image-nap-plus PREFIX=registry.dfslab.local:5000/nginx-plus-ingress TARGET=container
 
 ## If you want to upload an existing image in your private repository
 
-	docker tag registry.dfslab.local:5000/nginx-plus-ingress:edge
+    docker tag registry.dfslab.local:5000/nginx-plus-ingress:edge
     docker push registry.dfslab.local:5000/nginx-plus-ingress:edge
 
 ## Point to the private registry in your deployments and don’t forget to insert secret in the END of your deployment file.
