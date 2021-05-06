@@ -7,7 +7,7 @@ Create on a CA a cert/key pair for https access to registry.domain.name and expo
 On each worker node:
 
     vi /etc/hosts
-    10.24.1.10 registry.domain.name
+    10.24.1.10 registry.dfslab.local
 
 Import CA cert into --> /etc/ssl/certs
 
@@ -45,7 +45,7 @@ I gonna run my registry on the master node. So putting the ssl certificates ther
  
 ## On each worker node verify you can login to your repo:
 
-    sudo docker login registry.domain.name:5000
+    sudo docker login registry.dfslab.local:5000
  
 Verify config.json was created:
 
@@ -71,12 +71,17 @@ Verify config.json was created:
 ## If you need to build a new NGINX image execute the make command as described here:
 https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-the-docker-image
 
-    # example:
-    make DOCKERFILE=appprotect/DockerfileWithAppProtectForPlus PREFIX=registry.dfslab.local:5000/nap-ingress
+    # example for NGINX IC for Kubernetes:
+    git clone https://github.com/nginxinc/kubernetes-ingress/
+    git checkout v1.11.1
+    cd kubernetes-ingress
+    ls nginx-repo.*
+    nginx-repo.crt  nginx-repo.key
+    make debian-image-nap-plus PREFIX=registry.dfslab.local:5000/nginx-plus-ingress TARGET=container
 
 ## If you want to upload an existing image in your private repository
 
-	docker tag registry.dfslab.local:5000/nginx-plus-ingress:edge
+    docker tag registry.dfslab.local:5000/nginx-plus-ingress:edge
     docker push registry.dfslab.local:5000/nginx-plus-ingress:edge
 
 ## Point to the private registry in your deployments and don’t forget to insert secret in the END of your deployment file.
