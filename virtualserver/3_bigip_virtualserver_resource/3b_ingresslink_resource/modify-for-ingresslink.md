@@ -1,9 +1,0 @@
-
-    kubectl delete -f vs-securework_tea_coffee.yaml 
-    kubectl delete -f terminate-tls.yml
-
-    #optional:
-    #kubectl delete -f vs-securework_arcadia.yaml
-    
-    kubectl create -f 3b_ingresslink_resource/vs-ingresslink.yaml
-
