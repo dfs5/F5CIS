@@ -6,4 +6,4 @@ metadata:
 type: kubernetes.io/basic-auth
 stringData:
   username: admin
-  password: x
+  password: xxxxx
