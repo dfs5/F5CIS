@@ -105,9 +105,33 @@ Note: Delete custom resource when you are finished.
 
     kubectl delete -f ts_tcp.yaml
 
+## Deploy VirtualServer resource for connectivity to BIG-IP
+As of today this is the only option to use L7 services on BIG-IP with CRDs. With that you can terminate SSL and leverage BIG-IP WAF policies for traffic inspection.
+
+In this lab we will disable tls termination in NGINX IC and move it to BIG-IP. On the BIG-IP we will have a standard HTTP VIP frontending our K8S cluster. NGINX IC is still doing NAP.
+
+    kubectl delete Ingress cafe-ingress -n cafe
+    kubectl apply -f 3b_cafe-ingress-waf_noTLS.yaml
+    kubectl apply -f vsp_nginx-cafe-terminate-tls.yaml
+    kubectl apply -f vs_nginx-cafe.yaml
+
+Access cafe-app from browser:
+
+    http://cafe.example.com/coffee
+
+Verify NAP is running:
+
+    https://cafe.example.com/coffee<script>
+
+Note: Delete custom resource when you are finished.
+    
+    kubectl delete -f vs_nginx-cafe.yaml
+    kubectl delete -f vsp_nginx-cafe-terminate-tls.yaml
+
 ## Delete all
 
     kubectl delete -f cis-deployment-nodeport.yaml
-    kubectl delete -f https://raw.githubusercontent.com/mdditt2000/k8s-bigip-ctlr/main/user_guides/ingresslink/nodeport/cis/cis-crd-schema/customresourcedefinition.yaml -n kube-system
+    kubectl delete CustomResourceDefinition virtualservers.cis.f5.com -n kube-system
     kubectl delete serviceaccount bigip-ctlr -n kube-system
     kubectl delete -f bigip-login.yaml
+    kubectl delete -f rbac.yaml

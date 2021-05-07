@@ -8,7 +8,7 @@ metadata:
 spec:
   # This is an insecure virtual, Please use TLSProfile to secure the virtual
   # check out tls examples to understand more.
-  virtualServerAddress: "10.24.1.23"
+  virtualServerAddress: "10.24.1.22"
   virtualServerHTTPSPort: 443
   httpTraffic: redirect
 #  waf: /Common/WAF_Policy
@@ -20,6 +20,11 @@ spec:
   - path: /tea
     service: nginx-ingress
     servicePort: 80
+    monitor:
+      type: http
+      interval: 10
+      timeout: 31
+      send: 'GET /coffee HTTP/1.1\r\nHost: cafe.example.com\r\nConnection: Close\r\n\r\n'
   - path: /coffee
     service: nginx-ingress
     servicePort: 80
