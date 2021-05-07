@@ -18,8 +18,20 @@ proxy_protocol_iRule [repo](https://github.com/mdditt2000/kubernetes-1-19/blob/m
 ## Installing CIS Manually
 (https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
 
-Note: Modify 'bigip-login.yaml' with your admin password.
+Note: Create 'bigip-login.yaml' with your admin password.
 
+    vi bigip-login.yaml
+
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: bigip-login
+      namespace: kube-system
+    type: kubernetes.io/basic-auth
+    stringData:
+      username: admin
+      password: xxxxx
+    
     kubectl create -f bigip-login.yaml
     kubectl create serviceaccount bigip-ctlr -n kube-system
 
