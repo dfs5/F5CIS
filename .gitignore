@@ -1,3 +1,4 @@
 CIS/2_nginx-ic-plus/dfs-registry-secret.yaml
 CIS/3_CIS/vs_cafe.yaml
 CIS/3_CIS/vsp_cafe-terminate-tls.yaml
+CIS/3_CIS/bigip-login.yaml
