@@ -1,5 +1,9 @@
 ## Preparation
-Note: On BIG-IP create a parition called 'k8s-01'
+This lab is based on https://github.com/mdditt2000/k8s-bigip-ctlr/blob/main/user_guides/ingresslink/nodeport/README.md
+
+I recommend watching this Demo on [YouTube](https://www.youtube.com/watch?v=wi7vVZWHyxE) to better understand the idea of IngressLink using NodePort.
+
+On BIG-IP create a parition called 'k8s-01'
 
 Create the Proxy Protocol iRule on Bigip: \
 Note: Proxy Protocol is only required for IngressLink
