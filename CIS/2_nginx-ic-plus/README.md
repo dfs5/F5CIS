@@ -63,7 +63,7 @@ Note: Using NodePort mode
 
 Verify NGINX IC is running
 
-    curl http://nodeIP:port
+    curl http://nodeIP:30001
         <html>
         <head><title>404 Not Found</title></head>
         <body>

@@ -6,5 +6,8 @@
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/3b_cafe-ingress-waf.yaml
 ## Verify Ingress configuration
     kubectl exec nginx-ingress-pod-id -n nginx-ingress -- nginx -T
+Access application from browser:
+
+    https://cafe.example.com:30002/coffee
 ## Uninstall
     kubectl delete namespace cafe
