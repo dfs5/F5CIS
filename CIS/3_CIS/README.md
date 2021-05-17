@@ -80,10 +80,14 @@ Monitor AS3 calls on CIS:
 
     kubectl logs -f k8s-bigip-ctlr-deployment-pod-id -n kube-system | grep --color=auto -i '\[as3'
 
-Monitor NGINX IC traffic:
+Monitor NGINX IC logs:
 
     kubectl logs -f nginx-ingress-pod-id -n nginx-ingress
     
+Monitor NGINX IC traffic:
+
+    http://NodeIP:8080/dashboard.html
+
 ## Next we will deploy the following 3 Options:
 ![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
 

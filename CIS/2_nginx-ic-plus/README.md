@@ -39,10 +39,11 @@ Note: Update the nginx-plus-ingress.yaml with the container image that you have 
 Note: Don't forget to add secret in the end of the deployment declaration.
 ##### imagePullSecrets:
 #####   - name: my-registry-secret
-Note: Enable N+ and App Protect.
+Note: Enable N+ with App Protect and allow access to N+ dashboard.
 ##### args:
 #####       - -nginx-plus
 #####       - -enable-app-protect
+#####       - -nginx-status-allow-cidrs=0.0.0.0/0
     kubectl apply -f nginx-plus-ingress-health.yaml
 
 ## 3.2 Check that the Ingress Controller is Running
@@ -57,7 +58,7 @@ Note: Enable N+ and App Protect.
 
 Note: Using NodePort mode
 
-    kubectl create -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/service/nodeport.yaml
+    kubectl create -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
     kubectl get svc -n nginx-ingress
 
 Verify NGINC IC is running
