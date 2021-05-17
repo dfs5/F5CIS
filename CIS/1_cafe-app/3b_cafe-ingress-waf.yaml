@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
     - cafe.example.com
-    secretName: example.com
+    secretName: cafe-secret
   rules:
   - host: cafe.example.com
     http:
