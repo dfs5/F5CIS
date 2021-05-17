@@ -61,7 +61,7 @@ Note: Using NodePort mode
     kubectl create -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
     kubectl get svc -n nginx-ingress
 
-Verify NGINC IC is running
+Verify NGINX IC is running
 
     curl http://nodeIP:port
         <html>

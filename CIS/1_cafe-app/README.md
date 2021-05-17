@@ -1,9 +1,9 @@
 ## Install Cafe App
-    kubectl apply -f 1_cafe-ns.yaml
-    kubectl apply -f 2_cafe-app.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/1_cafe-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/2_cafe-app.yaml
 ## Deploy NGINX IC first befor proceeding (2_nginx-ic-plus)
-    kubectl apply -f 3a_tls_example.com.yaml
-    kubectl apply -f 3b_cafe-ingress-waf.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/3a_tls_example.com.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/3b_cafe-ingress-waf.yaml
 ## Verify Ingress configuration
     kubectl exec nginx-ingress-pod-id -n nginx-ingress -- nginx -T
 ## Uninstall
