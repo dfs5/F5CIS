@@ -34,9 +34,20 @@ We will pull deployment files directly from the official nginxinc/kubernetes-ing
 ## 3. Deploy the NGINX+ IC
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#deploy-the-ingress-controller)
 
-Note: Update the nginx-plus-ingress.yaml with the container image that you have built.
+Note: Update the nginx-plus-ingress.yaml with the container image that you have built. Howto guide can be found here: https://github.com/dfs5/F5CIS/tree/master/PrivateRegistry
 ##### e.g. - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1-SNAPSHOT-a1880f2
-Note: Don't forget to add secret in the end of the deployment declaration.
+Note: Don't forget to create secret for your private registry (my-registry-secret.yaml) 
+
+    apiVersion: v1
+    kind: Secret
+    metadata:
+     name: my-registry-secret
+     namespace: nginx-ingress
+    data:
+     .dockerconfigjson: base64encoded
+    type: kubernetes.io/dockerconfigjson
+
+and add that secret in the end of the deployment declaration.
 ##### imagePullSecrets:
 #####   - name: my-registry-secret
 Note: Enable N+ with App Protect and allow access to N+ dashboard.
