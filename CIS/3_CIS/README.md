@@ -83,6 +83,9 @@ Monitor AS3 calls on CIS:
 Monitor NGINX IC traffic:
 
     kubectl logs -f nginx-ingress-pod-id -n nginx-ingress
+    
+## Next we will deploy the following 3 Options:
+![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
 
 ## Deploy IngressLink resource for connectivity to BIG-IP
 Only IP address needs to be configured. That's it!\
