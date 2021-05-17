@@ -39,7 +39,7 @@ Note: Create 'bigip-login.yaml' with your admin password.
 
 Note: RBAC should be changed as per your cluster requirements: 'controller_namespace' 'secret-containing-bigip-login'
 
-    kubectl apply -f rbac.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
 
 Note: IngressLink requires CRDs. So we install F5 CRDs.
 
@@ -60,7 +60,7 @@ Note: Modify the default CIS deployment.
 #####   - "--log-as3-response=true"
 #####   - "--custom-resource-mode=true"         <--- using CRD for configuration simplicity
     
-    kubectl apply -f cis-deployment-nodeport.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cis-deployment-nodeport.yaml
 
 Verify CIS pod is running.
 
@@ -86,16 +86,16 @@ Monitor NGINX IC logs:
     
 Monitor NGINX IC traffic:
 
-    http://NodeIP:8080/dashboard.html
+    http://NodeIP:30003/dashboard.html
 
 ## Next we will deploy the following 3 Options:
 ![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
 
 ## Deploy IngressLink resource for connectivity to BIG-IP
-Only IP address needs to be configured. That's it!\
+Note: Adjust the VIP IP address as per your environment. That's it!\
 Also IngressLink has a specific Health Check on port 8081 included for NGINX IC instances.
 
-    kubectl apply -f nginx-nodeport-health.yaml    <--- opening port 8081 for Health Check; adding label for IngressLink selector
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/nginx-nodeport-health.yaml    <--- opening port 8081 for Health Check; adding label for IngressLink selector
     kubectl apply -f ingresslink.yaml              <--- applying configuration to BIG-IP; monitor your CIS AS3 communication
     
 Access cafe-app from browser:
@@ -108,7 +108,7 @@ Verify NAP is running:
 
 Note: Don't forget to remove custom resource befor proceeding to the next.
     
-    kubectl delete -f ingresslink.yaml
+    kubectl delete -f ingresslink.yaml -n nginx-ingress
 
 ## Deploy TransportServer resource for connectivity to BIG-IP
 As of today similar use case as with IngressLink but more flexible. E.g. you can define any port. (see: [IngressLink CRD vs TransportServer CRD](https://devcentral.f5.com/s/articles/My-first-deployment-of-IngressLink))\
