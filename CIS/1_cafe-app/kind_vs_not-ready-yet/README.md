@@ -14,27 +14,21 @@ In this example we deploy the NGINX Plus Ingress controller with [NGINX App Prot
     $ IC_HTTP_PORT=<port number>
     ```
 
-## Step 1. Deploy a Web Application
 
-Create the application deployment and service:
-```
-$ kubectl apply -f webapp.yaml
-```
-
-## Step 2 - Deploy the AP Policy
+## Step 1 - Deploy the AP Policy
 
 1. Create the syslog service and pod for the App Protect security logs:
     ```
-    $ kubectl apply -f syslog.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_vs_not-ready-yet/syslog.yaml
     ```
 1. Create the User Defined Signature, App Protect policy and log configuration:
     ```
-    $ kubectl apply -f ap-apple-uds.yaml
-    $ kubectl apply -f ap-dataguard-alarm-policy.yaml
-    $ kubectl apply -f ap-logconf.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_vs_not-ready-yet/ap-apple-uds.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_vs_not-ready-yet/ap-dataguard-alarm-policy.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_vs_not-ready-yet/ap-logconf.yaml
     ```
 
-## Step 3 - Deploy the WAF Policy
+## Step 2 - Deploy the WAF Policy
 
 1. Update the `logDest` field from `waf.yaml` with the ClusterIP of the syslog service. For example, if the IP is `10.101.21.110`:
     ```yaml
@@ -45,12 +39,12 @@ $ kubectl apply -f webapp.yaml
 
 1. Create the WAF policy
     ```
-    $ kubectl apply -f waf.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_vs_not-ready-yet/waf.yaml
     ```
 
 Note the App Protect configuration settings in the Policy resource. They enable WAF protection by configuring App Protect with the policy and log configuration created in the previous step.
 
-## Step 4 - Configure Load Balancing
+## Step 3 - Configure Load Balancing
 
 1. Create the VirtualServer Resource:
     ```
@@ -59,7 +53,7 @@ Note the App Protect configuration settings in the Policy resource. They enable 
 
 Note that the VirtualServer references the policy `waf-policy` created in Step 3.
 
-## Step 5 - Test the Application
+## Step 4 - Test the Application
 
 To access the application, curl the coffee and the tea services. We'll use the --resolve option to set the Host header of a request with `webapp.example.com`
 
