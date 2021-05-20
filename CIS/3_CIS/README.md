@@ -15,7 +15,7 @@ Note: Proxy Protocol is only required for IngressLink
 - Click Create.
 - In the Name field, type name as "Proxy_Protocol_iRule".
 - In the Definition field, Copy the definition from "Proxy_Protocol_iRule" file. Click Finished.
-proxy_protocol_iRule [repo](https://github.com/mdditt2000/kubernetes-1-19/blob/master/cis%202.3/github/damian/ingresslink/big-ip/proxy-protocal/irule)
+proxy_protocol_iRule [repo](https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/Proxy_Protocol_iRule)
 
 ## Installing CIS Manually
 (https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
@@ -41,24 +41,25 @@ Note: RBAC should be changed as per your cluster requirements: 'controller_names
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
 
-Note: IngressLink requires CRDs. So we install F5 CRDs.
+Note: IngressLink requires CRDs. So we install F5 CRDs and the CRD for IngressLink.
 
-    kubectl apply -f https://raw.githubusercontent.com/mdditt2000/k8s-bigip-ctlr/main/user_guides/ingresslink/nodeport/cis/cis-crd-schema/customresourcedefinition.yaml -n kube-system
+    kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/Install/customresourcedefinitions.yml
+    kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/ingresslink-customresourcedefinition.yaml
 
-Note: Modify the default CIS deployment.
+Note: Modify the arguments in the default CIS deployment to mach your environment.
 
 ##### args: 
-#####   - "--bigip-username=$(BIGIP_USERNAME)"
-#####   - "--bigip-password=$(BIGIP_PASSWORD)"
-#####   - "--bigip-url=10.1.1.2"                <--- adjust IP
-#####   - "--bigip-partition=k8s-01"
-#####   - "--namespace=nginx-ingress"           <--- add all namespaces IC should monitor
-#####   - "--namespace=cafe"                    <--- add all namespaces IC should monitor 
+#####   - "--bigip-username=$(BIGIP_USERNAME)"  <--- in this lab I use bigip-login.yaml to configure a secret 
+#####   - "--bigip-password=$(BIGIP_PASSWORD)"  <--- that populates the content of these variabels
+#####   - "--bigip-url=10.1.1.2"                <--- adjust to BIG-IP management IP
+#####   - "--bigip-partition=k8s-01".           <--- musst match the BIG-IP partition name
+#####   - "--namespace=nginx-ingress"           <--- add all namespaces IC should monitor, if your backend is KIC only that namespace is reqired
+#####   - "--namespace=cafe"                    <--- example how to add additional namespaces 
 #####   - "--pool-member-type=nodeport"         <--- using nodeport for easy integration; no overlay networks required 
-#####   - "--log-level=DEBUG"
+#####   - "--log-level=DEBUG"                   <--- for test environaments, else use INFO
 #####   - "--insecure=true"
 #####   - "--log-as3-response=true"
-#####   - "--custom-resource-mode=true"         <--- using CRD for configuration simplicity
+#####   - "--custom-resource-mode=true"         <--- IngressLink reqires using CRD
     
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cis-deployment-nodeport.yaml
 
@@ -155,8 +156,9 @@ Note: Delete custom resource when you are finished.
 
 ## Delete all
 
-    kubectl delete -f cis-deployment-nodeport.yaml
-    kubectl delete CustomResourceDefinition virtualservers.cis.f5.com -n kube-system
-    kubectl delete serviceaccount bigip-ctlr -n kube-system
-    kubectl delete -f bigip-login.yaml
-    kubectl delete -f rbac.yaml
+    kubectl delete deployment k8s-bigip-ctlr-deployment -n kube-system
+    kubectl delete CustomResourceDefinition virtualservers.cis.f5.com ingresslinks.cis.f5.com
+    kubectl delete serviceaccount bigip-ctlr
+    kubectl delete secret bigip-login -n kube-system
+    kubectl delete ClusterRoleBinding bigip-ctlr-clusterrole-binding
+    kubectl delete ClusterRole bigip-ctlr-clusterrole
