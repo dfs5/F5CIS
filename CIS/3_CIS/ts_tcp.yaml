@@ -7,7 +7,7 @@ metadata:
      f5cr: "true"
 spec:
   virtualServerAddress: "10.24.1.22"
-  virtualServerPort: 80443
+  virtualServerPort: 8443
   mode: standard
   snat: auto
   pool:
