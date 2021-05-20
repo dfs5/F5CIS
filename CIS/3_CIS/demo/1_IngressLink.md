@@ -33,6 +33,7 @@ Verify NAP is running:
 
     https://cafe.example.com/coffee?dfs=<script>
 
-Don't forget to remove custom resource befor proceeding to the next.
+Don't forget to remove custom resource befor proceeding to the next.\
+Note: Show that configuration has been removed from the BIG-IP!!!
 
-    kubectl delete -f ingresslink.yaml -n nginx-ingress
+    kubectl delete ingresslink il-cluster-vip -n nginx-ingress
