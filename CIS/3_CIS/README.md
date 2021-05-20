@@ -118,7 +118,7 @@ Note: First remove Proxy mode from NGINX IC.
 
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/nginx-config.yaml
 
-    kubectl apply -f ts_tcp.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp.yaml
 
 Access cafe-app from browser:
 
