@@ -6,7 +6,7 @@ Ensure cafe application is running and the ingress is configured correctly.
     
 In Browser verify NGINX IC configuration. You should see cafe.example.com with 2 upstreams to /tea and /coffee
 
-    http://NodeIP:30003/dashboard.html
+    http://AnyNodeIP:30003/dashboard.html
 
 
     kubectl create -f bigip-login.yaml
