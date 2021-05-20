@@ -31,7 +31,7 @@ Access cafe-app from browser:
 
 Verify NAP is running:
 
-    https://cafe.example.com/coffee<script>
+    https://cafe.example.com/coffee?dfs=<script>
 
 Don't forget to remove custom resource befor proceeding to the next.
 
