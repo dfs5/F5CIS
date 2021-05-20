@@ -70,7 +70,7 @@ Verify CIS pod is running.
 
 
 ## Monitor 
-Monitor AS3 calls on CIS:
+Monitor AS3 calls generated on CIS:
 
     kubectl logs -f k8s-bigip-ctlr-deployment-pod-id -n kube-system | grep --color=auto -i '\[as3'
 
@@ -88,12 +88,14 @@ Monitor NGINX IC traffic:
 ## Deploy IngressLink resource for connectivity to BIG-IP
 Note: Adjust the VIP IP address as per your environment. That's it!\
 IngressLink has a specific Health Check on port 8081 included for NGINX IC instances.
-Also IngressLink uses Proxy mode to advertise client IP to the NGINX instance.
+Also IngressLink uses Proxy Mode to advertise client IP to the NGINX instance.
 
 
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/nginx-nodeport-health.yaml    <--- opening port 8081 for Health Check; adding label for IngressLink selector
-    kubectl apply -f https://raw.githubusercontent.com/mdditt2000/k8s-bigip-ctlr/main/user_guides/ingresslink/nodeport/nginx-config/nginx-config.yaml
-    kubectl apply -f ingresslink.yaml              <--- applying configuration to BIG-IP; monitor your CIS AS3 communication
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/nginx-nodeport-health.yaml
+    |---> opening port 8081 for Health Check; adding label for IngressLink selector
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/configmap_proxy-mode.yaml
+    kubectl apply -f ingresslink.yaml
+    |---> applying configuration to BIG-IP; monitor your CIS AS3 communication
     
 Access cafe-app from browser:
 

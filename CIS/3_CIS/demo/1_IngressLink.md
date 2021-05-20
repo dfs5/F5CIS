@@ -8,11 +8,11 @@ Verify CIS pod is running.
 
     kubectl get pod -n kube-system | grep k8s
 
-Modify NGINX global configuration to proxy mode
+In a separate ssh session monitor AS3 calls generated on CIS
 
     kubectl logs -f k8s-bigip-ctlr-deployment-pod-id -n kube-system | grep --color=auto -i '\[as3'
 
-Monitor NGINX IC traffic
+In Browser monitor NGINX IC traffic
 
     http://NodeIP:30003/dashboard.html
 
