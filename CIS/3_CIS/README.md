@@ -17,6 +17,12 @@ Note: Proxy Protocol is only required for IngressLink
 - In the Definition field, Copy the definition from "Proxy_Protocol_iRule" file. Click Finished.
 proxy_protocol_iRule [repo](https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/Proxy_Protocol_iRule)
 
+Ensure cafe application is running and the ingress is configured correctly.
+
+    kubectl delete ingress cafe-ingress -n cafe
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/1_tls_example.com.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/2_cafe-ingress-waf.yaml
+
 ## Installing CIS Manually
 (https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
 
