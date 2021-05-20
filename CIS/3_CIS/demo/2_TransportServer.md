@@ -7,7 +7,7 @@ Access cafe-app from browser:
 
     https://cafe.example.com:8443/coffee
 
-Verify NAP is running:
+Show that NAP is still running:
 
     https://cafe.example.com:8443/coffee?dfs=<script>
 
