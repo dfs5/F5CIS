@@ -130,7 +130,7 @@ Verify NAP is running:
     
 Note: Delete custom resource when you are finished. 
 
-    kubectl delete -f ts_tcp.yaml
+    kubectl delete transportserver transport-server -n nginx-ingress
 
 ## Deploy VirtualServer resource for connectivity to BIG-IP
 As of today this is the only option to use L7 services on BIG-IP with CRDs. With that you can terminate SSL and leverage BIG-IP WAF policies for traffic inspection.
