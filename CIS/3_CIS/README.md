@@ -159,7 +159,7 @@ Note: Delete custom resource when you are finished and check configuration is re
     kubectl delete -f vs_nginx-cafe.yaml
     kubectl delete -f vsp_nginx-cafe-terminate-tls.yaml
 
-## Delete all
+## Delete CIS lab
 
     kubectl delete deployment k8s-bigip-ctlr-deployment -n kube-system
     kubectl delete CustomResourceDefinition virtualservers.cis.f5.com ingresslinks.cis.f5.com
