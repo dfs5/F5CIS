@@ -7,7 +7,7 @@ I recommend watching this Demo on [YouTube](https://www.youtube.com/watch?v=wi7v
 
 On BIG-IP create a parition called 'k8s-01' 
 
-Create the Proxy Protocol iRule on Bigip: \
+Create the [Proxy Protocol](https://devcentral.f5.com/s/articles/How-to-persist-real-IP-into-Kubernetes) iRule on Bigip: \
 Note: Proxy Protocol is only required for IngressLink
 
 - Login to BigIp GUI
