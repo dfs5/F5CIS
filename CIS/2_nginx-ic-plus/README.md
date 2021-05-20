@@ -55,7 +55,7 @@ Note: Enable N+ with App Protect and allow access to N+ dashboard.
 #####       - -nginx-plus
 #####       - -enable-app-protect
 #####       - -nginx-status-allow-cidrs=0.0.0.0/0
-    kubectl apply -f nginx-plus-ingress-health.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nginx-plus-ingress-health.yaml
 
 ## 3.2 Check that the Ingress Controller is Running
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#check-that-the-ingress-controller-is-running)
