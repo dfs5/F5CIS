@@ -35,7 +35,7 @@ We will pull deployment files directly from the official nginxinc/kubernetes-ing
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#deploy-the-ingress-controller)
 
 Note: Update the nginx-plus-ingress.yaml with the container image that you have built. Howto guide can be found here: https://github.com/dfs5/F5CIS/tree/master/PrivateRegistry
-##### e.g. - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1-SNAPSHOT-a1880f2
+##### e.g. - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1
 Note: Don't forget to create secret for your private registry (my-registry-secret.yaml): 
 
     apiVersion: v1
