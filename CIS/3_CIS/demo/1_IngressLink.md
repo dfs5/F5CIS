@@ -4,6 +4,11 @@ Ensure cafe application is running and the ingress is configured correctly.
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/1_tls_example.com.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/2_cafe-ingress-waf.yaml
     
+In Browser verify NGINX IC configuration. You should see cafe.example.com with 2 upstreams to /tea and /coffee
+
+    http://NodeIP:30003/dashboard.html
+
+
     kubectl create -f bigip-login.yaml
     kubectl create serviceaccount bigip-ctlr -n kube-system
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
