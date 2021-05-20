@@ -21,5 +21,3 @@ spec:
     nodePort: 30003
     protocol: TCP
     name: dashboard
-  selector:
-    app: nginx-ingress
