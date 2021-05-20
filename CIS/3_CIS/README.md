@@ -97,6 +97,8 @@ Also IngressLink uses Proxy Mode to advertise client IP to the NGINX instance.
     kubectl apply -f ingresslink.yaml
     |---> applying configuration to BIG-IP; monitor your CIS AS3 communication
     
+See CR configuration in BIG-IP UI!!!
+
 Access cafe-app from browser:
 
     http://cafe.example.com/coffee
@@ -105,9 +107,10 @@ Verify NAP is running:
 
     https://cafe.example.com/coffee<script>
 
-Note: Don't forget to remove custom resource befor proceeding to the next.
+Note: Don't forget to remove custom resource befor proceeding to the next.\
+Note: Show that configuration has been removed from the BIG-IP!!!
     
-    kubectl delete -f ingresslink.yaml -n nginx-ingress
+    kubectl delete ingresslink il-cluster-vip -n nginx-ingress
 
 ## Deploy TransportServer resource for connectivity to BIG-IP
 As of today similar use case as with IngressLink but more flexible. E.g. you can define any port. (see: [IngressLink CRD vs TransportServer CRD](https://devcentral.f5.com/s/articles/My-first-deployment-of-IngressLink))\
