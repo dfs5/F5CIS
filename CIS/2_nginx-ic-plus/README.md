@@ -50,11 +50,11 @@ Note: Don't forget to create secret for your private registry (my-registry-secre
 ...and add that secret in the end of the deployment declaration.
 ##### imagePullSecrets:
 #####   - name: my-registry-secret
-Note: Enable N+ with App Protect and allow access to N+ dashboard.
+Note: Enable N+ with App Protect and allow access to N+ dashboard from 10.24.0.0/16 network. Set to 0.0.0.0/0 for any.
 ##### args:
 #####       - -nginx-plus
 #####       - -enable-app-protect
-#####       - -nginx-status-allow-cidrs=0.0.0.0/0
+#####       - -nginx-status-allow-cidrs=10.24.0.0/16  <-- adjust to match your environment
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nginx-plus-ingress-health.yaml
 
 ## 3.2 Check that the Ingress Controller is Running
