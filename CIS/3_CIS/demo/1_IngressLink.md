@@ -1,10 +1,19 @@
-Ensure cafe application is running and the ingress is configured correctly.
+Ensure cafe application is running. 
+
+    kubectl get pod,svc -n cafe
+
+In Browser verify NGINX IC configuration. You shouldn't see cafe.example.com yet.
+
+    http://AnyNodeIP:30003/dashboard.html  <-- AnyNode only if dashboard access allowed from 0.0.0.0/0 
+
+Deploy the ingress for cafe.
 
     kubectl delete ingress cafe-ingress -n cafe
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/1_tls_example.com.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/2_cafe-ingress-waf.yaml
+    kubectl get ing -n cafe
     
-In Browser verify NGINX IC configuration. You should see cafe.example.com with 2 upstreams to /tea and /coffee
+In Browser verify NGINX IC configuration. You should now see cafe.example.com with 2 upstreams to /tea and /coffee
 
     http://AnyNodeIP:30003/dashboard.html
 
