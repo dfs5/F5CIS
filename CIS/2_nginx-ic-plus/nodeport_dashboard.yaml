@@ -8,17 +8,17 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 80
+    nodePort: 30001
     protocol: TCP
     name: http
   - port: 443
     targetPort: 443
-    nodePort: 443
+    nodePort: 30002
     protocol: TCP
     name: https
   - port: 8080
     targetPort: 8080
-    nodePort: 8080
+    nodePort: 30003
     protocol: TCP
     name: dashboard
   selector:

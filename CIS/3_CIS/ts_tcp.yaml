@@ -10,6 +10,8 @@ spec:
   virtualServerPort: 8443
   mode: standard
   snat: auto
+  iRules:
+    - /Common/Proxy_Protocol_iRule
   pool:
     service: nginx-ingress
     servicePort: 443
