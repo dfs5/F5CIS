@@ -14,5 +14,5 @@ Optinal verify NGINX config file
 Access application from browser:
 
     https://cafe.example.com:30002/coffee
-## Uninstall
+## Appnedix: Uninstall cafe application
     kubectl delete namespace cafe
