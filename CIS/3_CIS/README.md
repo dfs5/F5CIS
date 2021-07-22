@@ -93,9 +93,6 @@ Monitor NGINX IC logs:
 
     kubectl logs -f nginx-ingress-pod-id -n nginx-ingress
     
-Monitor NGINX IC traffic:
-
-    http://NodeIP:30003/dashboard.html
 
 ## Next we will deploy the following 3 Options:
 ![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
@@ -129,30 +126,31 @@ Verify NAP is running:
     https://cafe.example.com/coffee<script>
 
 This finalize the first Use Case.\
-Note: Don't forget to remove custom resource befor proceeding to the next use case.\
+Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
 Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!!
     
     kubectl delete ingresslink il-cluster-vip -n nginx-ingress
 
 ## Deploy TransportServer resource for connectivity to BIG-IP
-As of today similar use case as with IngressLink but more flexible. E.g. you can define any port. (see: [IngressLink CRD vs TransportServer CRD](https://devcentral.f5.com/s/articles/My-first-deployment-of-IngressLink))\
-Note: First remove Proxy mode from NGINX IC.
-
-    kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/nginx-config.yaml
+Similar use case as with IngressLink but more flexible. E.g. you can define protocol tcp or udp and any port. (see: [IngressLink CRD vs TransportServer CRD](https://devcentral.f5.com/s/articles/My-first-deployment-of-IngressLink))\
+Here we apply a VIP listening on port 8443 with a tcp profile and a simple tcp monitor and attach the same Proxy_Protocol_iRule as with IngressLink.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp.yaml
 
-See CR configuration in BIG-IP UI!!!
+Verify VirtualServer configuration in BIG-IP UI!!!
 
 Access cafe-app from browser:
 
     https://cafe.example.com:8443/coffee
     
-Show that NAP is still running:
+Verify NAP is running:
 
-    https://cafe.example.com:8443/coffee?dfs=<script>
+    https://cafe.example.com:8443/coffee<script>
     
-Note: Delete custom resource when you are finished and check configuration is removed from BIG-IP. 
+    
+This finalize the second Use Case.\
+Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
+Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!! 
 
     kubectl delete transportserver transport-server -n nginx-ingress
 
