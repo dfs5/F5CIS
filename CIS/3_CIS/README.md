@@ -193,3 +193,10 @@ Note: Delete custom resource when you are finished and check configuration is re
     kubectl delete secret bigip-login -n kube-system
     kubectl delete ClusterRoleBinding bigip-ctlr-clusterrole-binding
     kubectl delete ClusterRole bigip-ctlr-clusterrole
+    
+## Restore access via NGINX IC
+
+    kubectl delete ingress cafe-ingress -n cafe
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/1_tls_example.com.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/2_cafe-ingress-waf.yaml
+
