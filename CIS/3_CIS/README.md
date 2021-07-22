@@ -25,7 +25,7 @@ Ensure cafe application is running and the ingress is configured correctly.
     
 In Browser verify NGINX IC configuration. You should see cafe.example.com with 2 upstreams to /tea and /coffee
 
-    http://AnyNodeIP:30003/dashboard.html
+    http://nodeIP:30003/dashboard.html
 
 
 ## Installing CIS Manually
