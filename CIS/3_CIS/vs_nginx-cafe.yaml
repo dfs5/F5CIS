@@ -10,6 +10,7 @@ spec:
   # check out tls examples to understand more.
   virtualServerAddress: "10.24.1.22"
   virtualServerHTTPSPort: 443
+  virtualServerName: svc1-http
   httpTraffic: redirect
 #  waf: /Common/WAF_Policy
 #  iRules:
