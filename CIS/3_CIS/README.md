@@ -56,7 +56,7 @@ Note: RBAC should be changed as per your cluster requirements: 'controller_names
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
 
-Note: IngressLink requires CRDs. So we install F5 CRDs and the CRD for IngressLink.
+Note: IngressLink is based on CRDs. So we install F5 CRDs for IngressLink and other F5 CRDs for later use cases.
 
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/Install/customresourcedefinitions.yml
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/ingresslink-customresourcedefinition.yaml
