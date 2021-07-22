@@ -128,8 +128,9 @@ Verify NAP is running:
 
     https://cafe.example.com/coffee<script>
 
-Note: Don't forget to remove custom resource befor proceeding to the next.\
-Note: Show that configuration has been removed from the BIG-IP!!!
+This finalize the first Use Case.\
+Note: Don't forget to remove custom resource befor proceeding to the next use case.\
+Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!!
     
     kubectl delete ingresslink il-cluster-vip -n nginx-ingress
 
