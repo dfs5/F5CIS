@@ -8,6 +8,7 @@ metadata:
 spec:
   virtualServerAddress: "10.24.1.22"
   virtualServerPort: 8443
+  virtualServerName: svc1-tcp-ts
   mode: standard
   snat: auto
   iRules:
