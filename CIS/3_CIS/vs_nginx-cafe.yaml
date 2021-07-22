@@ -13,8 +13,8 @@ spec:
   virtualServerName: svc1-http
   httpTraffic: redirect
 #  waf: /Common/WAF_Policy
-#  iRules:
-#  - /Common/Portal_SSL_Version
+  iRules:
+    - /Common/Proxy_Protocol_iRule
   tlsProfileName: terminate-tls
   host: cafe.example.com
   pools:
