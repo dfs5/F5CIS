@@ -3,13 +3,13 @@
 
 We will pull deployment files directly from the official nginxinc/kubernetes-ingress repo.
 ## 1. Configure RBAC and Namespace
-(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#configure-rbac)
+(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#1-configure-rbac)
 
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/ns-and-sa.yaml
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/rbac/rbac.yaml
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/rbac/ap-rbac.yaml 
 ## 2. Create Common Resources
-(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#create-common-resources)
+(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#2-create-common-resources)
 
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/default-server-secret.yaml
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/nginx-config.yaml
@@ -32,7 +32,7 @@ We will pull deployment files directly from the official nginxinc/kubernetes-ing
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/crds/appprotect.f5.com_apusersigs.yaml
 
 ## 3. Deploy the NGINX+ IC
-(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#deploy-the-ingress-controller)
+(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#3-deploy-the-ingress-controller)
 
 Note: Update the nginx-plus-ingress.yaml with the container image that you have built. Howto guide can be found here: https://github.com/dfs5/F5CIS/tree/master/PrivateRegistry
 ##### e.g. - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1
@@ -60,14 +60,14 @@ Note: Enable N+ with App Protect and allow access to N+ dashboard from 10.24.0.0
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nginx-plus-ingress-health.yaml
 
 ## 3.2 Check that the Ingress Controller is Running
-(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#check-that-the-ingress-controller-is-running)
+(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#32-check-that-the-ingress-controller-is-running)
 
 ##### $ kubectl get pods --namespace=nginx-ingress
 ##### NAME                             READY   STATUS    RESTARTS   AGE
 ##### nginx-ingress-84b97c486c-csrqp   1/1     Running   0          2m26s
 
 ## 4. Get Access to the Ingress Controller
-(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#get-access-to-the-ingress-controller)
+(https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#4-get-access-to-the-ingress-controller)
 
 Note: Using NodePort mode
 
