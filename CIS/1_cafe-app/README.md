@@ -5,6 +5,11 @@
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/1_tls_example.com.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/2_cafe-ingress-waf.yaml
 ## Verify Ingress configuration
+Verify Ingress configuration on NGINX dashboard
+
+    In browser: http://nodeIP:30003/dashboard.html#
+Optinal verify NGINX config file
+
     kubectl exec nginx-ingress-pod-id -n nginx-ingress -- nginx -T
 Access application from browser:
 
