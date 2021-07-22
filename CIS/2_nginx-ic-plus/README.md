@@ -74,9 +74,10 @@ Note: Using NodePort mode
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
     kubectl get svc -n nginx-ingress
 
-Verify NGINX IC is running
+Verify NGINX IC is running and listening on http/https
 
     curl http://nodeIP:30001
+    curl https://nodeIO:30002   <-- default certificate used
         <html>
         <head><title>404 Not Found</title></head>
         <body>
