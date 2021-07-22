@@ -112,7 +112,13 @@ Also IngressLink uses Proxy Mode to advertise client IP to the NGINX instance.
     kubectl apply -f ingresslink.yaml
     |---> applying configuration to BIG-IP; monitor your CIS AS3 communication
     
-See CR configuration in BIG-IP UI!!!
+Verify VirtualServer configuration in BIG-IP UI!!!
+- 2x VIPs (80/443) with tcp profile only, no SSL, no http
+- pool assigned via Default Pool configuration, no LTM traffic policies
+- predefined iRule for Proxy_Protocol attached
+- healthcheck based on NGINX ready state: GET /nginx-ready HTTP/1.1\r\n
+
+You can optional access NGINX Readines port from browser: http://AnyNodeIP:Port/nginx-ready 
 
 Access cafe-app from browser:
 
