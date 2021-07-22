@@ -85,6 +85,10 @@ Verify NGINX IC is running and listening on http/https
         <hr><center>nginx/1.19.5</center>
         </body>
         </html>
+        
+Verify NGINX IC dashboard is running (configuration is still empty) 
+
+    In browser: http://nodeIP:30003/dashboard.html#
     
 ### Go back to '1_cafe-app' and deploy Ingress service befor you proceed on '3_CIS' !!!
 
