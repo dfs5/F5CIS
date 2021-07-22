@@ -27,7 +27,11 @@ In Browser verify NGINX IC configuration. You should see cafe.example.com with 2
 
     http://nodeIP:30003/dashboard.html
 
+In browser verify that you can access the application directly via NGINX IC via Node Port: 30002
 
+    https://cafe.example.com:30002/tea
+
+## Next we will install CIS and access the same application via BIG-IP as external LB
 ## Installing CIS Manually
 (https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
 
