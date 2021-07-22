@@ -1,5 +1,5 @@
 ## Preparation
-This lab is based on https://github.com/mdditt2000/k8s-bigip-ctlr/blob/main/user_guides/ingresslink/nodeport/README.md
+This lab is based on https://github.com/F5Networks/k8s-bigip-ctlr/tree/master/docs/config_examples/crd/IngressLink
 
 I recommend watching this Demo on [YouTube](https://www.youtube.com/watch?v=wi7vVZWHyxE) to better understand the idea of IngressLink using NodePort.
 
