@@ -166,13 +166,17 @@ Note: "Proxy_Protocol_iRule" is not used in that configuration so we apply an em
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vs_nginx-cafe.yaml
 
-See CR configuration in BIG-IP UI!!!
+Verify VirtualServer configuration in BIG-IP UI!!!
+- 2x standard VIPs (80 for redirect/443 for app workloads), http profile assigned
+- pool assigned via LTM traffic policies matching on "HTTP header" and "HTTP URI" 
+- extended healthcheck based on application state: GET /coffee HTTP/1.1\r\nHost: cafe.example.com\r\nConnection: Close\r\n\r\n
 
 Access cafe-app from browser:
 
     http://cafe.example.com/coffee
 
-Verify NAP is still running:
+Verify NAP is still running:\
+Note: We have WAF still running on NGINX but now it could be run on the frontend BIG-IP as well!!!
 
     https://cafe.example.com/coffee?dfs=<script>
 
