@@ -92,7 +92,7 @@ Verify NGINX IC dashboard is running (configuration is still empty)
     
 ### Go back to '1_cafe-app' and deploy Ingress service befor you proceed on '3_CIS' !!!
 
-## Uninstall the Ingress Controller
+## Appnedix: Uninstall the Ingress Controller
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#uninstall-the-ingress-controller)
 
     kubectl delete namespace nginx-ingress
