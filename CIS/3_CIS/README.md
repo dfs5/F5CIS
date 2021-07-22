@@ -182,8 +182,8 @@ Note: We have WAF still running on NGINX but now it could be run on the frontend
 
 Note: Delete custom resource when you are finished and check configuration is removed from BIG-IP.
     
-    kubectl delete -f vs_nginx-cafe.yaml
-    kubectl delete -f vsp_nginx-cafe-terminate-tls.yaml
+    kubectl delete vs -n nginx-ingress vs-nginx-cafe
+    kubectl delete tls -n nginx-ingress terminate-tls
 
 ## Delete CIS lab
 
