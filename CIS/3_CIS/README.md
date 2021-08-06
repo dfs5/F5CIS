@@ -110,7 +110,10 @@ Monitor NGINX IC logs:
 
     kubectl logs -f nginx-ingress-pod-id -n nginx-ingress
     
+Monitor IPAM logs:
 
+    kubectl logs -f f5-ipam-controller-pod-id -n kube-system
+    
 ## Next we will deploy the following 3 Options:
 ![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
 
@@ -150,7 +153,7 @@ Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI 
 
 ## Deploy TransportServer resource for connectivity to BIG-IP
 Similar use case as with IngressLink but more flexible. E.g. you can define protocol tcp or udp and any port. (see: [IngressLink CRD vs TransportServer CRD](https://devcentral.f5.com/s/articles/My-first-deployment-of-IngressLink))\
-Here we apply a VIP listening on port 8443 with a tcp profile and a simple tcp monitor and attach the same Proxy_Protocol_iRule as with IngressLink.
+Here we apply a VIP listening on port 8443 with a tcp profile and a simple tcp monitor and attach the same Proxy_Protocol_iRule as with IngressLink. We are using the nginx-nodeport-health.yaml and configmap_proxy-mode.yaml from prevoius configuration.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp.yaml
 
@@ -165,11 +168,20 @@ Verify NAP is running:
     https://cafe.example.com:8443/coffee<script>
     
     
+Now appply 2 additional servers with IP addresses being provided automatically by IPAM:
+
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam2.yaml
+
+Verify VirtualServer configuration in BIG-IP UI!!! You should see now 3 VS in total.
+
 This finalize the second Use Case.\
 Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
 Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!! 
 
     kubectl delete transportserver transport-server -n nginx-ingress
+    kubectl delete transportserver transport-server-ipam -n nginx-ingress
+    kubectl delete transportserver transport-server-ipam2 -n nginx-ingress
 
 ## Deploy VirtualServer resource for connectivity to BIG-IP
 As of today this is the only option to use L7 services on BIG-IP with CRDs. With that you can terminate SSL and leverage BIG-IP WAF policies for traffic inspection.
