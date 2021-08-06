@@ -98,6 +98,7 @@ Verify CIS and IPAM pods are running.
     k8s-bigip-ctlr-deployment-65855bfdb6-826b4   1/1     Running   0          47s
     
     $ kubectl get pod -n kube-system | grep ipam
+    f5-ipam-controller-5cfb94bb8b-7dm8l          1/1     Running   0          117s
 
 
 ## Monitor 
