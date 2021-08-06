@@ -16,7 +16,7 @@ spec:
 #  iRules:
 #    - /Common/any_iRule
   tlsProfileName: terminate-tls
-  host: cafe.example.com
+  host: cafe2.example.com
   pools:
   - path: /tea
     service: nginx-ingress
