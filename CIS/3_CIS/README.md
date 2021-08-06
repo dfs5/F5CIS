@@ -52,14 +52,27 @@ Note: Create 'bigip-login.yaml' with your admin password.
     kubectl create -f bigip-login.yaml
     kubectl create serviceaccount bigip-ctlr -n kube-system
 
-Note: RBAC should be changed as per your cluster requirements: 'controller_namespace' 'secret-containing-bigip-login'
+Note: RBAC should be changed as per your cluster requirements: 'controller_namespace' 'secret-containing-bigip-login'. The second rbac is for the IPAM controller for later use.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-rbac.yaml
 
-Note: IngressLink is based on CRDs. So we install F5 CRDs for IngressLink and other F5 CRDs for later use cases.
+Note: IngressLink is based on CRDs. So we install F5 CRDs for IngressLink, IPAM and other F5 CRDs for later use cases.
+
+
+Limitations when CIS deployed in CRD mode:
+- CIS does not watch for Ingress/Routes/ConfigMaps when deployed in CRD Mode.
+- CIS does not support the combination of CRDs with any of Ingress/Routes and ConfigMaps.
 
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/Install/customresourcedefinitions.yml
+    
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/ingresslink-customresourcedefinition.yaml
+    
+    kubectl apply -f https://raw.githubusercontent.com/F5Networks/f5-ipam-controller/main/docs/_static/schemas/ipam_schema.yaml
+    
+Note: We deploy IPAM controller for IP management. With that CRD configuration becomes even easier as IP addresses are automatically assigned from a predefined range. Change the IP ranges to fit your requirements.
+
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-deployment_default.yaml
 
 Note: Modify the arguments in the default CIS deployment to mach your environment.
 
@@ -75,13 +88,16 @@ Note: Modify the arguments in the default CIS deployment to mach your environmen
 #####   - "--insecure=true"
 #####   - "--log-as3-response=true"
 #####   - "--custom-resource-mode=true"         <--- IngressLink reqires using CRD
+#####   - "--ipam=true"                         <--- Integration with IPAM controller
     
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cis-deployment-nodeport.yaml
 
-Verify CIS pod is running.
+Verify CIS and IPAM pods are running.
 
     $ kubectl get pod -n kube-system | grep k8s
     k8s-bigip-ctlr-deployment-65855bfdb6-826b4   1/1     Running   0          47s
+    
+    $ kubectl get pod -n kube-system | grep ipam
 
 
 ## Monitor 
