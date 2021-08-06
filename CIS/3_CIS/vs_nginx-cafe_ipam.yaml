@@ -11,11 +11,11 @@ spec:
   ipamLabel: Dev
   virtualServerHTTPSPort: 443
   virtualServerName: svc2-http
-  httpTraffic: redirect
+#  httpTraffic: redirect
 #  waf: /Common/WAF_Policy
 #  iRules:
 #    - /Common/any_iRule
-  tlsProfileName: terminate-tls
+#  tlsProfileName: terminate-tls
   host: cafe2.example.com
   pools:
   - path: /tea
