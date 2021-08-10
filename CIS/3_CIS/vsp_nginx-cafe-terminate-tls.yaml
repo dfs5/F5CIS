@@ -12,4 +12,6 @@ spec:
     reference: bigip
   hosts:
   - cafe.example.com
+  - cafe2.example.com
+  - cafe3.example.com
 #  - arcadia.dfslab.local

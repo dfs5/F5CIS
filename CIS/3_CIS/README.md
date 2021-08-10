@@ -52,11 +52,17 @@ Note: Create 'bigip-login.yaml' with your admin password.
     kubectl create -f bigip-login.yaml
     kubectl create serviceaccount bigip-ctlr -n kube-system
 
-Note: RBAC should be changed as per your cluster requirements: 'controller_namespace' 'secret-containing-bigip-login'
+Note: RBAC should be changed as per your cluster requirements: 'controller_namespace' 'secret-containing-bigip-login'. The second rbac is for the IPAM controller for later use.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-rbac.yaml
 
-Note: IngressLink is based on CRDs. So we install F5 CRDs for IngressLink and other F5 CRDs for later use cases.
+Note: IngressLink is based on CRDs. So we install F5 CRDs for IngressLink, IPAM and other F5 CRDs for later use cases.
+
+
+Limitations when CIS deployed in CRD mode:
+- CIS does not watch for Ingress/Routes/ConfigMaps when deployed in CRD Mode.
+- CIS does not support the combination of CRDs with any of Ingress/Routes and ConfigMaps.
 
 Limitations when CIS deployed in CRD mode:
 - CIS does not watch for Ingress/Routes/ConfigMaps when deployed in CRD Mode.
@@ -65,6 +71,12 @@ Limitations when CIS deployed in CRD mode:
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/Install/customresourcedefinitions.yml
     
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/ingresslink-customresourcedefinition.yaml
+    
+    kubectl apply -f https://raw.githubusercontent.com/F5Networks/f5-ipam-controller/main/docs/_static/schemas/ipam_schema.yaml
+    
+[IPAM Integration](https://github.com/F5Networks/f5-ipam-controller): We deploy IPAM controller for IP management. With that CRD configuration becomes even easier as IP addresses are automatically assigned from a predefined range. Integration with Infoblox is possible. Change the IP ranges to fit your requirements.
+
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-deployment_default.yaml
 
 Note: Modify the arguments in the default CIS deployment to mach your environment.
 
@@ -80,14 +92,18 @@ Note: Modify the arguments in the default CIS deployment to mach your environmen
 #####   - "--insecure=true"
 #####   - "--log-as3-response=true"
 #####   - "--custom-resource-mode=true"         <--- IngressLink reqires using CRD
+#####   - "--ipam=true"                         <--- Integration with IPAM controller
 
     
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cis-deployment-nodeport.yaml
 
-Verify CIS pod is running.
+Verify CIS and IPAM pods are running.
 
     $ kubectl get pod -n kube-system | grep k8s
     k8s-bigip-ctlr-deployment-65855bfdb6-826b4   1/1     Running   0          47s
+    
+    $ kubectl get pod -n kube-system | grep ipam
+    f5-ipam-controller-5cfb94bb8b-7dm8l          1/1     Running   0          117s
 
 
 ## Monitor 
@@ -99,7 +115,10 @@ Monitor NGINX IC logs:
 
     kubectl logs -f nginx-ingress-pod-id -n nginx-ingress
     
+Monitor IPAM logs:
 
+    kubectl logs -f f5-ipam-controller-pod-id -n kube-system
+    
 ## Next we will deploy the following 3 Options:
 ![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
 
@@ -132,14 +151,14 @@ Verify NAP is running:
     https://cafe.example.com/coffee<script>
 
 This finalize the first Use Case.\
-Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
+Note: Don't forget to remove CR with the command below befor proceeding to the next use case.\
 Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!!
     
     kubectl delete ingresslink il-cluster-vip -n nginx-ingress
 
 ## Deploy TransportServer resource for connectivity to BIG-IP
 Similar use case as with IngressLink but more flexible. E.g. you can define protocol tcp or udp and any port. (see: [IngressLink CRD vs TransportServer CRD](https://devcentral.f5.com/s/articles/My-first-deployment-of-IngressLink))\
-Here we apply a VIP listening on port 8443 with a tcp profile and a simple tcp monitor and attach the same Proxy_Protocol_iRule as with IngressLink.
+Here we apply a VIP listening on port 8443 with a tcp profile and a simple tcp monitor and attach the same Proxy_Protocol_iRule as with IngressLink. We are using the nginx-nodeport-health.yaml and configmap_proxy-mode.yaml from prevoius configuration.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp.yaml
 
@@ -154,11 +173,29 @@ Verify NAP is running:
     https://cafe.example.com:8443/coffee<script>
     
     
+IPAM integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
+
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam2.yaml
+
+Verify VirtualServer configuration in BIG-IP UI!!! You should see now 3 VS in total.
+
+Verify IPAM configuration.\
+Note: Due to a possible [BUG](https://github.com/F5Networks/k8s-bigip-ctlr/issues/1916) the IP address assigned from IPAM static range is not shown here.
+
+    kubectl get ts -n nginx-ingress
+    NAME                     VIRTUALSERVERADDRESS   VIRTUALSERVERPORT   POOL            POOLPORT   AGE
+    transport-server         10.24.1.22             8443                nginx-ingress   443        10m
+    transport-server-ipam                           8443                nginx-ingress   443        35s
+    transport-server-ipam2                          8443                nginx-ingress   443        34s
+
 This finalize the second Use Case.\
 Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
 Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!! 
 
     kubectl delete transportserver transport-server -n nginx-ingress
+    kubectl delete transportserver transport-server-ipam -n nginx-ingress
+    kubectl delete transportserver transport-server-ipam2 -n nginx-ingress
 
 ## Deploy VirtualServer resource for connectivity to BIG-IP
 As of today this is the only option to use L7 services on BIG-IP with CRDs. With that you can terminate SSL and leverage BIG-IP WAF policies for traffic inspection.
@@ -171,8 +208,8 @@ Note: Health check will be done on application so we remove Readines Port 8081 a
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
     kubectl delete Ingress cafe-ingress -n cafe
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cafe-ingress-waf_noTLS.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vs_nginx-cafe.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe.yaml
 
 Verify VirtualServer configuration in BIG-IP UI!!!
 - 2x standard VIPs (80 for redirect/443 for app workloads), http profile assigned
@@ -188,12 +225,30 @@ Note: We have WAF still running on NGINX but now it could be run on the frontend
 
     https://cafe.example.com/coffee?dfs=<script>
 
-Note: Delete custom resource when you are finished and check configuration is removed from BIG-IP.
+IPAM Integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
+
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam2.yaml
+
+Verify IPAM configuration.\
+Note: Due to a possible [BUG](https://github.com/F5Networks/k8s-bigip-ctlr/issues/1916) the IP address assigned from IPAM static range is not shown here.
+
+    kubectl get vs -n nginx-ingress
+    NAME                  HOST                TLSPROFILENAME   HTTPTRAFFIC   IPADDRESS    IPAMLABEL   IPAMVSADDRESS   AGE
+    vs-nginx-cafe         cafe.example.com    terminate-tls    redirect      10.24.1.22                               68s
+    vs-nginx-cafe-ipam    cafe2.example.com   terminate-tls                               Dev                         52s
+    vs-nginx-cafe-ipam2   cafe3.example.com   terminate-tls    redirect                   Dev                         50s
+
+This finalize the third and last Use Case.\
+Note: Don't forget to remove custom resource with the command below.\
+Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!! 
     
     kubectl delete vs -n nginx-ingress vs-nginx-cafe
+    kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam
+    kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam2
     kubectl delete tls -n nginx-ingress terminate-tls
 
-## Delete CIS deployment
+## Delete CIS deployment when you finished the lab.
 
     kubectl delete deployment k8s-bigip-ctlr-deployment -n kube-system
     kubectl delete CustomResourceDefinition virtualservers.cis.f5.com ingresslinks.cis.f5.com
@@ -202,7 +257,7 @@ Note: Delete custom resource when you are finished and check configuration is re
     kubectl delete ClusterRoleBinding bigip-ctlr-clusterrole-binding
     kubectl delete ClusterRole bigip-ctlr-clusterrole
     
-## Restore access via NGINX IC
+## Restore access via NGINX IC to reset the lab for the next demo.
 
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/nginx-config.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml

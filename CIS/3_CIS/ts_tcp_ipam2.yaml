@@ -1,0 +1,27 @@
+apiVersion: "cis.f5.com/v1"
+kind: TransportServer
+metadata:
+   name: transport-server-ipam2
+   namespace: nginx-ingress
+   labels:
+     f5cr: "true"
+spec:
+  ipamLabel: Prod
+  virtualServerPort: 8443
+  virtualServerName: svc3-tcp-ts
+  mode: standard
+  snat: auto
+  iRules:
+    - /Common/Proxy_Protocol_iRule
+  pool:
+    service: nginx-ingress
+    servicePort: 443
+    monitor:
+      type: tcp
+      interval: 10
+      timeout: 10
+  serviceAddress:
+  - icmpEcho: "enable"
+    arpEnabled: true
+    routeAdvertisement: "all"
+    spanningEnabled: false
