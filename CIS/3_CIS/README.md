@@ -70,7 +70,7 @@ Limitations when CIS deployed in CRD mode:
     
     kubectl apply -f https://raw.githubusercontent.com/F5Networks/f5-ipam-controller/main/docs/_static/schemas/ipam_schema.yaml
     
-Note: We deploy IPAM controller for IP management. With that CRD configuration becomes even easier as IP addresses are automatically assigned from a predefined range. Change the IP ranges to fit your requirements.
+[IPAM Integration](https://github.com/F5Networks/f5-ipam-controller): We deploy IPAM controller for IP management. With that CRD configuration becomes even easier as IP addresses are automatically assigned from a predefined range. Integration with Infoblox is possible. Change the IP ranges to fit your requirements.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-deployment_default.yaml
 
@@ -216,7 +216,16 @@ IPAM Integration: Now apply 2 additional servers with IP addresses being provide
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam2.yaml
 
-Note: Delete custom resource when you are finished and check configuration is removed from BIG-IP.
+Verify IPAM configuration.\
+Note: Due to a possible [BUG](https://github.com/F5Networks/k8s-bigip-ctlr/issues/1916) the IP address assigned from IPAM static range is not shown here.
+
+    kubectl get vs -n nginx-ingress
+    NAME                  HOST                TLSPROFILENAME   HTTPTRAFFIC   IPADDRESS    IPAMLABEL   IPAMVSADDRESS   AGE
+    vs-nginx-cafe         cafe.example.com    terminate-tls    redirect      10.24.1.22                               68s
+    vs-nginx-cafe-ipam    cafe2.example.com   terminate-tls                               Dev                         52s
+    vs-nginx-cafe-ipam2   cafe3.example.com   terminate-tls    redirect                   Dev                         50s
+
+Delete custom resource when you are finished and check configuration is removed from BIG-IP.
     
     kubectl delete vs -n nginx-ingress vs-nginx-cafe
     kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam
