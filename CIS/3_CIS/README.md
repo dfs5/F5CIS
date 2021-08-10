@@ -146,7 +146,7 @@ Verify NAP is running:
     https://cafe.example.com/coffee<script>
 
 This finalize the first Use Case.\
-Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
+Note: Don't forget to remove CR with the command below befor proceeding to the next use case.\
 Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!!
     
     kubectl delete ingresslink il-cluster-vip -n nginx-ingress
@@ -168,7 +168,7 @@ Verify NAP is running:
     https://cafe.example.com:8443/coffee<script>
     
     
-Now appply 2 additional servers with IP addresses being provided automatically by IPAM:
+IPAM integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam2.yaml
@@ -211,9 +211,16 @@ Note: We have WAF still running on NGINX but now it could be run on the frontend
 
     https://cafe.example.com/coffee?dfs=<script>
 
+IPAM Integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
+
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam2.yaml
+
 Note: Delete custom resource when you are finished and check configuration is removed from BIG-IP.
     
     kubectl delete vs -n nginx-ingress vs-nginx-cafe
+    kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam
+    kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam2
     kubectl delete tls -n nginx-ingress terminate-tls
 
 ## Delete CIS deployment

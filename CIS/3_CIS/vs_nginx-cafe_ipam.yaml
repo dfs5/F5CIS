@@ -15,7 +15,7 @@ spec:
 #  waf: /Common/WAF_Policy
 #  iRules:
 #    - /Common/any_iRule
-#  tlsProfileName: terminate-tls
+  tlsProfileName: terminate-tls
   host: cafe2.example.com
   pools:
   - path: /tea
