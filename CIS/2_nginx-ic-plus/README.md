@@ -90,7 +90,7 @@ Verify NGINX IC dashboard is running (configuration is still empty)
 
     In browser: http://nodeIP:30003/dashboard.html#
     
-### Go back to [1_cafe-app](https://github.com/dfs5/F5CIS/tree/ipam/CIS/1_cafe-app#deploy-nginx-ic-first-befor-proceeding-2_nginx-ic-plus) and deploy Ingress service befor you proceed on '3_CIS' !!!
+### Go back to [1_cafe-app](https://github.com/dfs5/F5CIS/tree/master/CIS/1_cafe-app#deploy-nginx-ic-first-befor-proceeding-2_nginx-ic-plus) and deploy Ingress service befor you proceed on '3_CIS' !!!
 
 ## Appendix: Uninstall the Ingress Controller
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#uninstall-the-ingress-controller)

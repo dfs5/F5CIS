@@ -55,7 +55,7 @@ Note: Create 'bigip-login.yaml' with your admin password.
 Note: RBAC should be changed as per your cluster requirements: 'controller_namespace' 'secret-containing-bigip-login'. The second rbac is for the IPAM controller for later use.
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/rbac.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-rbac.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ipam/f5-ipam-rbac.yaml
 
 Note: IngressLink is based on CRDs. So we install F5 CRDs for IngressLink, IPAM and other F5 CRDs for later use cases.
 
@@ -76,7 +76,7 @@ Limitations when CIS deployed in CRD mode:
     
 [IPAM Integration](https://github.com/F5Networks/f5-ipam-controller): We deploy IPAM controller for IP management. With that CRD configuration becomes even easier as IP addresses are automatically assigned from a predefined range. Integration with Infoblox is possible. Change the IP ranges to fit your requirements.
 
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ipam/f5-ipam-deployment_default.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ipam/f5-ipam-deployment_default.yaml
 
 Note: Modify the arguments in the default CIS deployment to mach your environment.
 
@@ -175,8 +175,8 @@ Verify NAP is running:
     
 IPAM integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
 
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/ts_tcp_ipam2.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp_ipam.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp_ipam2.yaml
 
 Verify VirtualServer configuration in BIG-IP UI!!! You should see now 3 VS in total.
 
@@ -208,8 +208,8 @@ Note: Health check will be done on application so we remove Readines Port 8081 a
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
     kubectl delete Ingress cafe-ingress -n cafe
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cafe-ingress-waf_noTLS.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vs_nginx-cafe.yaml
 
 Verify VirtualServer configuration in BIG-IP UI!!!
 - 2x standard VIPs (80 for redirect/443 for app workloads), http profile assigned
@@ -227,8 +227,8 @@ Note: We have WAF still running on NGINX but now it could be run on the frontend
 
 IPAM Integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
 
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe_ipam2.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vs_nginx-cafe_ipam.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vs_nginx-cafe_ipam2.yaml
 
 Verify IPAM configuration.\
 Note: Due to a possible [BUG](https://github.com/F5Networks/k8s-bigip-ctlr/issues/1916) the IP address assigned from IPAM static range is not shown here.
