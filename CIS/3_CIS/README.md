@@ -175,6 +175,15 @@ IPAM integration: Now apply 2 additional servers with IP addresses being provide
 
 Verify VirtualServer configuration in BIG-IP UI!!! You should see now 3 VS in total.
 
+Verify IPAM configuration.\
+Note: Due to a possible [BUG](https://github.com/F5Networks/k8s-bigip-ctlr/issues/1916) the IP address assigned from IPAM static range is not shown here.
+
+    kubectl get ts -n nginx-ingress
+    NAME                     VIRTUALSERVERADDRESS   VIRTUALSERVERPORT   POOL            POOLPORT   AGE
+    transport-server         10.24.1.22             8443                nginx-ingress   443        10m
+    transport-server-ipam                           8443                nginx-ingress   443        35s
+    transport-server-ipam2                          8443                nginx-ingress   443        34s
+
 This finalize the second Use Case.\
 Note: Don't forget to remove custom resource with the command below befor proceeding to the next use case.\
 Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!! 
@@ -225,14 +234,16 @@ Note: Due to a possible [BUG](https://github.com/F5Networks/k8s-bigip-ctlr/issue
     vs-nginx-cafe-ipam    cafe2.example.com   terminate-tls                               Dev                         52s
     vs-nginx-cafe-ipam2   cafe3.example.com   terminate-tls    redirect                   Dev                         50s
 
-Delete custom resource when you are finished and check configuration is removed from BIG-IP.
+This finalize the third and last Use Case.\
+Note: Don't forget to remove custom resource with the command below.\
+Note: Monitor AS3 log to see sucessfull API declaration. Check in the BIG-IP UI that VIP configuration has been removed!!! 
     
     kubectl delete vs -n nginx-ingress vs-nginx-cafe
     kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam
     kubectl delete vs -n nginx-ingress vs-nginx-cafe-ipam2
     kubectl delete tls -n nginx-ingress terminate-tls
 
-## Delete CIS deployment
+## Delete CIS deployment when you finished the lab.
 
     kubectl delete deployment k8s-bigip-ctlr-deployment -n kube-system
     kubectl delete CustomResourceDefinition virtualservers.cis.f5.com ingresslinks.cis.f5.com
@@ -241,7 +252,7 @@ Delete custom resource when you are finished and check configuration is removed 
     kubectl delete ClusterRoleBinding bigip-ctlr-clusterrole-binding
     kubectl delete ClusterRole bigip-ctlr-clusterrole
     
-## Restore access via NGINX IC
+## Restore access via NGINX IC to reset the lab for the next demo.
 
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/nginx-config.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
