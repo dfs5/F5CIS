@@ -194,8 +194,8 @@ Note: Health check will be done on application so we remove Readines Port 8081 a
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nodeport_dashboard.yaml
     kubectl delete Ingress cafe-ingress -n cafe
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/cafe-ingress-waf_noTLS.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
-    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/vs_nginx-cafe.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vsp_nginx-cafe-terminate-tls.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/ipam/CIS/3_CIS/vs_nginx-cafe.yaml
 
 Verify VirtualServer configuration in BIG-IP UI!!!
 - 2x standard VIPs (80 for redirect/443 for app workloads), http profile assigned
