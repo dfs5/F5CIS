@@ -120,7 +120,7 @@ Monitor IPAM logs:
     kubectl logs -f f5-ipam-controller-pod-id -n kube-system
     
 ## Next we will deploy the following 3 Options:
-![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-05-17%20at%2017.18.43.png)
+![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-08-13%20at%2011.00.02.png)
 
 ## Deploy IngressLink resource for connectivity to BIG-IP
 Note: Adjust the VIP IP address as per your environment. That's it!\
@@ -174,6 +174,7 @@ Verify NAP is running:
     
     
 IPAM integration: Now apply 2 additional servers with IP addresses being provided automatically by IPAM.
+![architecture](https://github.com/dfs5/F5CIS/blob/master/CIS/3_CIS/diagram/Screenshot%202021-08-13%20at%2011.02.22.png)
 
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp_ipam.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/3_CIS/ts_tcp_ipam2.yaml
