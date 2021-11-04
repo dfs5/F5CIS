@@ -73,11 +73,11 @@ https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-
 
     # example for NGINX IC for Kubernetes:
     git clone https://github.com/nginxinc/kubernetes-ingress/
-    git checkout v1.11.1
     cd kubernetes-ingress
+    git checkout v1.11.1
     ls nginx-repo.*
     nginx-repo.crt  nginx-repo.key
-    make debian-image-nap-plus PREFIX=registry.dfslab.local:5000/nginx-plus-ingress TARGET=container
+    make debian-image-nap-plus PREFIX=registry.dfslab.local:5000/nginx-plus-ingress TARGET=container TAG=v1.11.1
 
 ## If you want to upload an existing image in your private repository
 
@@ -106,7 +106,7 @@ https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-
         spec:
           serviceAccountName: nginx-ingress
           containers:
-            - image: registry.dfslab.local:5000/nginx-plus-ingress:edge
+            - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1
               imagePullPolicy: Always
               name: nginx-plus-ingress
               ports:
