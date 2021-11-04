@@ -78,6 +78,7 @@ https://docs.nginx.com/nginx-ingress-controller/app-protect/installation/#build-
     ls nginx-repo.*
     nginx-repo.crt  nginx-repo.key
     make debian-image-nap-plus PREFIX=registry.dfslab.local:5000/nginx-plus-ingress TARGET=container TAG=v1.11.1
+    docker push registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1
 
 ## If you want to upload an existing image in your private repository
 
