@@ -36,6 +36,7 @@ spec:
             port: readiness-port
           periodSeconds: 5
           initialDelaySeconds: 5
+          failureThreshold: 10
         securityContext:
           allowPrivilegeEscalation: true
           runAsUser: 101 #nginx
