@@ -18,7 +18,7 @@ spec:
     spec:
       serviceAccountName: nginx-ingress
       containers:
-      - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.11.1-SNAPSHOT-a1880f2
+      - image: registry.dfslab.local:5000/nginx-plus-ingress:v1.12.3
         imagePullPolicy: IfNotPresent
         name: nginx-plus-ingress
         ports:
