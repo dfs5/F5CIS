@@ -58,7 +58,7 @@ spec:
           - -nginx-plus
           - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
           - -default-server-tls-secret=$(POD_NAMESPACE)/default-server-secret
-          #- -enable-app-protect
+          - -enable-app-protect
           - -nginx-status-allow-cidrs=10.24.0.0/16
           - -enable-preview-policies
           - -ingresslink=nginx-ingress
