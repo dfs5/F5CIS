@@ -30,11 +30,11 @@ spec:
           containerPort: 8081
        #- name: prometheus
          #containerPort: 9113
-       # readinessProbe:
-       #   httpGet:
-       #     path: /nginx-ready
-       #     port: readiness-port
-       #   periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /nginx-ready
+            port: readiness-port
+          periodSeconds: 1
        #   initialDelaySeconds: 5
        #   failureThreshold: 10
         securityContext:
@@ -58,7 +58,7 @@ spec:
           - -nginx-plus
           - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
           - -default-server-tls-secret=$(POD_NAMESPACE)/default-server-secret
-          - -enable-app-protect
+          #- -enable-app-protect
           - -nginx-status-allow-cidrs=10.24.0.0/16
           - -enable-preview-policies
           - -ingresslink=nginx-ingress
