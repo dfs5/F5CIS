@@ -31,7 +31,11 @@ We will pull deployment files directly from the official nginxinc/kubernetes-ing
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/crds/appprotect.f5.com_appolicies.yaml
     kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/crds/appprotect.f5.com_apusersigs.yaml
 
-## 3. Deploy the NGINX+ IC
+## 3. Deploy syslog service to monitor NAP request blocking. (This is optional)
+
+    kubectls apply -f 
+
+## 4. Deploy the NGINX+ IC
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#3-deploy-the-ingress-controller)
 
 Note: Update the nginx-plus-ingress.yaml with the container image that you have built. Howto guide can be found here: https://github.com/dfs5/F5CIS/tree/master/PrivateRegistry
@@ -59,14 +63,14 @@ Note: Enable N+ with App Protect and allow access to N+ dashboard from 10.24.0.0
 #####       - -report-ingress-status        <-- for IngressLink
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nginx-plus-ingress-health.yaml
 
-## 3.2 Check that the Ingress Controller is Running
+## 4.2 Check that the Ingress Controller is Running
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#32-check-that-the-ingress-controller-is-running)
 
 ##### $ kubectl get pods --namespace=nginx-ingress
 ##### NAME                             READY   STATUS    RESTARTS   AGE
 ##### nginx-ingress-84b97c486c-csrqp   1/1     Running   0          2m26s
 
-## 4. Get Access to the Ingress Controller
+## 5. Get Access to the Ingress Controller
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#4-get-access-to-the-ingress-controller)
 
 Note: Using NodePort mode
