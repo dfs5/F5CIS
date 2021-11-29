@@ -33,7 +33,8 @@ We will pull deployment files directly from the official nginxinc/kubernetes-ing
 
 ## 3. Deploy syslog service to monitor NAP request blocking. (This is optional)
 
-    kubectls apply -f 
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/nap-log.yaml
+    kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/2_nginx-ic-plus/syslog-service.yaml
 
 ## 4. Deploy the NGINX+ IC
 (https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/#3-deploy-the-ingress-controller)
