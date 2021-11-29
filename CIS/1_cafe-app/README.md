@@ -3,6 +3,8 @@
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/2_cafe-app.yaml
 ## Deploy [NGINX IC](https://github.com/dfs5/F5CIS/tree/master/CIS/2_nginx-ic-plus) first befor proceeding
 ## Deploy WAF-policy, ssl certificate and ingress configuration for cafe app
+Adjust the syslog server IP in '2_cafe-ingress-waf.yaml' to your current service clusterIP befor deploying
+
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/waf-policy.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/1_tls_example.com.yaml
     kubectl apply -f https://raw.githubusercontent.com/dfs5/F5CIS/master/CIS/1_cafe-app/kind_ingress/2_cafe-ingress-waf.yaml
