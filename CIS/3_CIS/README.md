@@ -15,7 +15,7 @@ Note: Proxy Protocol is only required for IngressLink
 - Click Create.
 - In the Name field, type name as "Proxy_Protocol_iRule".
 - In the Definition field, Copy the definition from "Proxy_Protocol_iRule" file. Click Finished.
-proxy_protocol_iRule [repo](https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/IngressLink/Proxy_Protocol_iRule)
+proxy_protocol_iRule [repo](https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/customResource/IngressLink/Proxy_Protocol_iRule)
 
 Ensure cafe application is running and the ingress is configured correctly.
 
