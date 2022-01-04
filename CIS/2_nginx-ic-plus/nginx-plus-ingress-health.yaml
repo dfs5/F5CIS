@@ -61,13 +61,13 @@ spec:
           - -default-server-tls-secret=$(POD_NAMESPACE)/default-server-secret
           - -nginx-status-port=8080
           - -nginx-status-allow-cidrs=0.0.0.0/0
-         #- -enable-snippets
+         # - -enable-snippets
           - -enable-app-protect
-         #- -v=3 # Enables extensive logging. Useful for troubleshooting.
+         # - -v=3 # Enables extensive logging. Useful for troubleshooting.
           - -report-ingress-status
-         #- -external-service=nginx-ingress
-          - -enable-prometheus-metrics
+         # - -external-service=nginx-ingress
+         # - -enable-prometheus-metrics
           - -enable-latency-metrics
-         #- -global-configuration=$(POD_NAMESPACE)/nginx-configuration
+         # - -global-configuration=$(POD_NAMESPACE)/nginx-configuration
       imagePullSecrets:
         - name: my-registry-secret
